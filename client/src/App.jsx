@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
+import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Workspace from './pages/Workspace';
 
@@ -17,6 +18,7 @@ function App() {
             <>
               {/* If they are signed in, show them the Vault */}
               <SignedIn>
+                <Navbar />
                 <Workspace />
               </SignedIn>
 

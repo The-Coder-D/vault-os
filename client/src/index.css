@@ -1,146 +1,249 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
 
-* {
+/* ─── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Space Grotesk', sans-serif;
 }
 
-/* The Animated Dark Canvas */
+/* ─── Design Tokens ──────────────────────────────────────── */
+:root {
+    --bg:        #09090b;
+    --surface:   #111113;
+    --border:    rgba(255,255,255,0.07);
+    --border-hi: rgba(255,255,255,0.12);
+    --text:      #fafafa;
+    --muted:     #71717a;
+    --subtle:    #a1a1aa;
+    --accent:    #6366f1;
+    --accent-lo: rgba(99,102,241,0.12);
+    --accent-hi: rgba(99,102,241,0.35);
+    --violet:    #8b5cf6;
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
 body, html, #root {
-    min-height: 100vh;
+    height: 100vh;
     width: 100%;
-    background-color: #050505;
-    position: relative;
-    overflow-x: hidden;
-    color: #ffffff;
+    overflow: hidden;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Background Glowing Orbs */
-#root::before,
-#root::after {
+/* ─── Grid Background ────────────────────────────────────── */
+/* Replaces the blob orbs with a precise engineering-grade grid */
+body::before {
     content: '';
-    position: absolute;
-    width: 50vw;
-    height: 50vw;
-    max-width: 600px;
-    max-height: 600px;
-    border-radius: 50%;
-    filter: blur(120px);
-    z-index: 0;
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 40%, transparent 100%);
     pointer-events: none;
+    z-index: 0;
 }
 
-#root::before {
-    background: #4f46e5; /* Electric Blue */
-    top: -10%;
-    left: -10%;
-    animation: float 12s ease-in-out infinite;
+/* Subtle top glow — single source, not two blobs */
+body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(99,102,241,0.18) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
 }
 
-#root::after {
-    background: #c026d3; /* Neon Purple */
-    bottom: -10%;
-    right: -10%;
-    animation: float 15s ease-in-out infinite reverse;
-}
-
-@keyframes float {
-    0% { transform: translate(0, 0); }
-    50% { transform: translate(5%, 10%); }
-    100% { transform: translate(0, 0); }
-}
-
-/* --- Reusable UI Components --- */
-
-/* The Core Glass Structure */
-.glass-panel {
-    position: relative;
-    z-index: 10; 
-    background: rgba(25, 25, 25, 0.4); 
-    backdrop-filter: blur(24px);           
-    -webkit-backdrop-filter: blur(24px);   
-    border: 1px solid rgba(255, 255, 255, 0.08); 
-    border-radius: 24px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-}
-
-/* Premium Gradient Text */
+/* ─── Typography ─────────────────────────────────────────── */
 .gradient-text {
-    background: linear-gradient(to right, #ffffff, #a1a1aa);
+    background: linear-gradient(160deg, #ffffff 0%, #a1a1aa 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-/* ... Keep your existing @import, body, and glowing orb background styles ... */
+.mono {
+    font-family: var(--font-mono);
+}
 
-/* The Upgraded, High-End Glass Structure */
+/* ─── Surfaces ───────────────────────────────────────────── */
+.glass-panel {
+    position: relative;
+    z-index: 10;
+    background: rgba(17,17,19,0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
 .glass-panel-premium {
     position: relative;
-    z-index: 10; 
-    background: rgba(20, 20, 22, 0.6); /* Slightly darker, deeper base */
-    backdrop-filter: blur(32px);           
-    -webkit-backdrop-filter: blur(32px);   
-    border-radius: 24px;
-    
-    /* The complex multi-layered boundary */
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05), /* Fine inner highlight */
-        0 0 0 1px rgba(0, 0, 0, 0.8),              /* Sharp dark outline */
-        0 30px 60px rgba(0, 0, 0, 0.6),            /* Deep structural shadow */
-        0 0 40px rgba(79, 70, 229, 0.15);          /* Subtle ambient purple glow */
+    z-index: 10;
+    background: rgba(17,17,19,0.8);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.05),
+        0 20px 40px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(0,0,0,0.6);
 }
 
-/* Premium Dynamic Button */
+/* ─── Button ─────────────────────────────────────────────── */
 .btn-premium {
-    background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(192, 38, 211, 0.9));
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.3), 
-        0 10px 20px rgba(0, 0, 0, 0.4);
-    transition: all 0.3s ease;
+    background: var(--accent);
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.1) inset, 0 8px 24px rgba(99,102,241,0.25);
+    transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+    font-family: var(--font-sans);
 }
 
 .btn-premium:hover {
-    box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.5), 
-        0 15px 30px rgba(192, 38, 211, 0.4); /* Glow expands on hover */
-    transform: translateY(-2px);
+    background: #818cf8;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset, 0 12px 32px rgba(99,102,241,0.4);
+    transform: translateY(-1px);
 }
 
-/* 1. Lock the main viewport so the whole page never scrolls */
-body, html, #root {
-    overflow: hidden; 
-    height: 100vh;
+/* ─── Eyebrow badge ──────────────────────────────────────── */
+.eyebrow-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-lo);
+    border: 1px solid var(--accent-hi);
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #a5b4fc;
+    letter-spacing: 0.01em;
 }
 
-/* 2. Create a sleek, native-app scrollbar for internal panels */
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+/* ─── Infinite Marquee ───────────────────────────────────── */
+.marquee-outer {
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+    position: relative;
+    z-index: 10;
 }
 
-::-webkit-scrollbar-track {
-    background: transparent; 
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 32s linear infinite;
+    will-change: transform;
 }
 
-::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1); 
-    border-radius: 10px;
+.marquee-track:hover {
+    animation-play-state: paused;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(79, 70, 229, 0.6); /* Glows purple on hover */
+@keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
 }
 
-/* Safe Global Animations */
-@keyframes spin { 
-    100% { transform: rotate(360deg); } 
+.marquee-card {
+    flex-shrink: 0;
+    width: 340px;
+    margin: 0 10px;
+    padding: 20px 24px;
+    background: rgba(17,17,19,0.85);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+    transition: border-color 0.2s ease;
+    cursor: default;
 }
 
-@keyframes slideUp { 
-    from { opacity: 0; transform: translateY(20px); } 
-    to { opacity: 1; transform: translateY(0); } 
+.marquee-card:hover {
+    border-color: var(--border-hi);
+}
+
+.marquee-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.marquee-card-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.marquee-card-filename {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--subtle);
+    letter-spacing: 0.02em;
+}
+
+.marquee-card-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.marquee-card-body {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.55;
+}
+
+.marquee-card-tag {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* ─── Navbar logo text ───────────────────────────────────── */
+.navbar-logo-text {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-size: 1rem;
+}
+
+/* ─── Scrollbars ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.5); }
+
+/* ─── Safe global animations ─────────────────────────────── */
+@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+    body::before { background-size: 40px 40px; }
 }

@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ChevronLeft, Box } from 'lucide-react';
+import ShinyText from './ShinyText/ShinyText';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -39,7 +40,14 @@ function Navbar() {
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <Box size={24} color="#4f46e5" />
-        <span style={{ fontWeight: '700', letterSpacing: '1px' }}>Vault OS</span>
+        <ShinyText
+          text="Vault OS"
+          speed={3}
+          color="#a1a1aa"
+          shineColor="#ffffff"
+          spread={100}
+          className="navbar-logo-text"
+        />
       </div>
     </nav>
   );
