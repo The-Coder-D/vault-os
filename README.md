@@ -9,7 +9,9 @@ Paste a code snippet in, and Vault OS uses Google's Gemini model to summarize wh
 ## 🎥 Demo
 
 - **Live demo:** https://vault-os-ruby.vercel.app/
-- **Demo GIF:** [record a 15–20s clip of pasting a snippet → seeing the analysis → checking the saved history]
+- **Demo GIF:** <img width="1912" height="910" alt="image" src="https://github.com/user-attachments/assets/126ef1d8-0868-4cdf-bd12-15802ed90d7e" />
+
+
 
 ## 🤔 Why I built this
 
